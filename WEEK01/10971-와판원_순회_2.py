@@ -5,9 +5,7 @@ import sys
 input = sys.stdin.readline
 
 N = int(input())
-price = []
-for i in range(N):
-    price.append(list(map(int, input().split())))
+price = [list(map(int, input().split())) for i in range(N)]
 
 def main(N, price):
     answer = sys.maxsize

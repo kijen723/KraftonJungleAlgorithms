@@ -1,36 +1,34 @@
 # https://www.acmicpc.net/problem/10971
 
-from itertools import permutations
 import sys
 input = sys.stdin.readline
 
 N = int(input())
 price = [list(map(int, input().split())) for i in range(N)]
 
-def main(N, price):
-    answer = sys.maxsize
-    arr = [i for i in range(N)]
-    permuarr = list(permutations(arr, N))
-    
-    for i in permuarr:
-        totalsum = 0
-        possible = True
-        
-        for j in range(N - 1):
-            if price[i[j]][i[j + 1]] != 0:
-                totalsum += price[i[j]][i[j + 1]]
-            else:
-                possible = False
-                break
-            
-        if price[i[-1]][i[0]] != 0:
-            totalsum += price[i[-1]][i[0]]
-        else:
-            possible = False
+answer = sys.maxsize
+check = [0] * N
 
-        if possible == True:
+def travel(start, now, totalsum, count):
+    global answer
+    if count == N:
+        if price[now][start]:
+            totalsum += price[now][start]
             answer = min(answer, totalsum)
+        return
+    
+    if totalsum > answer:
+        return
+    
+    for i in range(N):
+        if check[i] == 0 and price[now][i] != 0:
+            check[i] = 1
+            travel(start, i, totalsum + price[now][i], count + 1)
+            check[i] = 0
             
-    return answer
+for i in range(N):
+    check[i] = 1
+    travel(i, i, 0, 1)
+    check[i] = 0
 
-print(main(N, price))
+print(answer)

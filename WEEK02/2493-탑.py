@@ -1,5 +1,3 @@
-# https://www.acmicpc.net/problem/2493
-
 import sys
 input = sys.stdin.readline
 
@@ -15,11 +13,9 @@ for i in range(N):
             break
         else:
             stack.pop()
-
     if not stack:
         answer.append(0)
 
     stack.append((i, heights[i]))
 
-for i in answer:
-    print(i, end=' ')
+print(*answer)

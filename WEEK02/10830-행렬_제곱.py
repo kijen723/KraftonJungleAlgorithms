@@ -20,8 +20,6 @@ def matrix_square(matrix, matrix2):
 def matrix_multi(A, B):
     if B == 1:
         return A
-    elif B == 2:
-        return matrix_square(A, A)
     else:
         square = matrix_multi(A, B // 2)
         if B % 2 == 0:
